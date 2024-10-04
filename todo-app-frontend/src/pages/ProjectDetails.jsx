@@ -119,7 +119,7 @@ const ProjectDetails = () => {
       // Send a POST request to the backend route for exporting the gist
       const token = localStorage.getItem('userToken'); // Assuming user is authenticated with a token
       const response = await axios.post(
-        `/api/projects/${id}/export`, 
+        `${backendUrl}/api/projects/${id}/export`, 
         {}, // POST request body can be empty
         { headers: { Authorization: `Bearer ${token}` } } // Include auth token
       );
