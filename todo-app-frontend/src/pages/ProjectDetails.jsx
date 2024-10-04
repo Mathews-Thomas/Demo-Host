@@ -13,11 +13,11 @@ const ProjectDetails = () => {
   const [editedTodo, setEditedTodo] = useState('');
   const [gisturl,setGistul] = useState('')
   const navigate = useNavigate();
-
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const fetchProject = async () => {
     try {
       const token = localStorage.getItem('userToken');
-      const { data } = await axios.get(`/api/projects/${id}`, {
+      const { data } = await axios.get(`${backendUrl}/api/projects/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setProject(data);
@@ -43,7 +43,7 @@ const ProjectDetails = () => {
     if (!newTodo) return;
     try {
       const token = localStorage.getItem('userToken');
-      const { data } = await axios.post(`/api/projects/${id}/todos`, { description: newTodo }, {
+      const { data } = await axios.post(`${backendUrl}/api/projects/${id}/todos`, { description: newTodo }, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setProject({ ...project, todos: [...project.todos, data] });
@@ -58,7 +58,7 @@ const ProjectDetails = () => {
   const handleDeleteTodo = async (todoId) => {
     try {
       const token = localStorage.getItem('userToken');
-      await axios.delete(`/api/projects/${id}/todos/${todoId}`, {
+      await axios.delete(`${backendUrl}/api/projects/${id}/todos/${todoId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success('Todo deleted');
@@ -81,7 +81,7 @@ const ProjectDetails = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('userToken');
-      const { data } = await axios.put(`/api/projects/${id}/todos/${editingTodo}`, {
+      const { data } = await axios.put(`${backendUrl}/api/projects/${id}/todos/${editingTodo}`, {
         description: editedTodo,
       }, {
         headers: { Authorization: `Bearer ${token}` },
@@ -100,7 +100,7 @@ const ProjectDetails = () => {
   const handleToggleComplete = async (todoId, currentStatus) => {
     try {
       const token = localStorage.getItem('userToken');
-      const { data } = await axios.put(`/api/projects/${id}/todos/${todoId}`, {
+      const { data } = await axios.put(`${backendUrl}/api/projects/${id}/todos/${todoId}`, {
         status: currentStatus === 'completed' ? 'pending' : 'completed',
       }, {
         headers: { Authorization: `Bearer ${token}` },

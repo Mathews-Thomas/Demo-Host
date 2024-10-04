@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: 'https://your-frontend.vercel.app', // Replace with your Vercel URL
+  origin: 'https://demo-host-ten.vercel.app/', // Replace with your Vercel URL
   methods: 'GET,POST,PUT,DELETE', // Define allowed methods
   credentials: true // Set to true if using cookies or authentication
 }));

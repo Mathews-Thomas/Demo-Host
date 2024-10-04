@@ -6,13 +6,14 @@ const CreateProject = () => {
   const [title, setTitle] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   const handleCreateProject = async (e) => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('userToken'); // Get the user token
       const { data } = await axios.post(
-        '/api/projects',   // Correct POST request
+        `${backendUrl}/api/projects`,   // Correct POST request
         { title },
         {
           headers: { Authorization: `Bearer ${token}` }, // Send the JWT token

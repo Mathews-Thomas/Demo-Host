@@ -8,12 +8,13 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   const handleRegister = async (e) => {
     e.preventDefault();
     setError('');  // Reset any existing error
     try {
-      const { data } = await axios.post('api/users/register', {
+      const { data } = await axios.post(`${backendUrl}/api/users/register`, {
         username,
         password,
       });

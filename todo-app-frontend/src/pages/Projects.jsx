@@ -10,10 +10,10 @@ const Projects = () => {
   const [editProjectId, setEditProjectId] = useState(null); // Track the project being edited
   const [inputValue, setInputValue] = useState(""); // Track the input value for updating
   const navigate = useNavigate()
-
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const fetchProjects = async () => {
     const token = localStorage.getItem('userToken');
-    const { data } = await axios.get('/api/projects', {
+    const { data } = await axios.get(`${backendUrl}/api/projects`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     setProjects(data);
@@ -27,7 +27,7 @@ const Projects = () => {
     const token = localStorage.getItem("userToken");
     setIsEditing(true);
     try {
-      const res = await axios.delete(`/api/projects/${id}`, {
+      const res = await axios.delete(`${backendUrl}/api/projects/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast(res.message || "Project deleted successfully");
@@ -49,7 +49,7 @@ const Projects = () => {
     const token = localStorage.getItem("userToken");
     try {
       const res = await axios.put(
-        `/api/projects/${id}`,
+        `${backendUrl}/api/projects/${id}`,
         { title: inputValue }, // Update the project title
         {
           headers: { Authorization: `Bearer ${token}` },
