@@ -6,11 +6,11 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post('api/users/login', { username, password });
+      const { data } = await axios.post(`${backendUrl}/api/users/login`, { username, password });
       localStorage.setItem('userToken', data.token);  // Save the token
       toast.success('Login successful!');
       navigate('/projects');
